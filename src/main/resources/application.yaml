@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: transactions
+  config:
+    import: optional:file:.env[.properties]
+  mongodb:
+    uri: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@localhost:27017/${MONGODB_DB}?authSource=admin
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+    consumer:
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      group-id: transaction-group
+      properties:
+        spring.json.trusted.packages: com.antony.transactions
+        spring.json.add.types.headers: false

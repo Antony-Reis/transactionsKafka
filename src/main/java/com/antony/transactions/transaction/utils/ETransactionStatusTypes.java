@@ -1,0 +1,19 @@
+package com.antony.transactions.transaction.utils;
+
+public enum ETransactionStatusTypes {
+    PENDENTE("Pendente"),
+    BLOQUEADO("Bloqueado"),
+    ACEITO("Aceito");
+
+    private final String status;
+
+    ETransactionStatusTypes(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+
+}
