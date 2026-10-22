@@ -26,4 +26,9 @@ public class KafkaTopicConfig {
     public NewTopic topicFraud(){
         return new NewTopic("fraud", 2, (short) 1);
     }
+
+    @Bean
+    public NewTopic topicNotification(){
+        return new NewTopic("notification", 2, (short) 1);
+    }
 }

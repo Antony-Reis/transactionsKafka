@@ -1,7 +1,9 @@
-package com.antony.transactions;
+package com.antony.transactions.transaction;
 
-import com.antony.transactions.transaction.TransactionEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.time.LocalDateTime;
+
 public interface ITransactionRepository extends MongoRepository<TransactionEntity, String> {
+    long countByCreateAtGreaterThanEqual(LocalDateTime instant);
 }

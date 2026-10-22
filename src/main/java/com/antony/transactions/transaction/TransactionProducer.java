@@ -1,17 +1,16 @@
 package com.antony.transactions.transaction;
 
-import com.antony.transactions.transaction.utils.RTransactionDto;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TransactionProducer {
-    private final KafkaTemplate<String, RTransactionDto> kafkaTemplate;
+    private final KafkaTemplate<String, TransactionEntity> kafkaTemplate;
 
-    public TransactionProducer(KafkaTemplate<String, RTransactionDto> kafkaTemplate) {
+    public TransactionProducer(KafkaTemplate<String, TransactionEntity> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
-   public void sendTransaction(RTransactionDto event){
-        kafkaTemplate.send("fraud", event.createAt().toString(), event);
+   public void sendTransaction(TransactionEntity event){
+        kafkaTemplate.send("fraud", event.getId(), event);
    }
 }

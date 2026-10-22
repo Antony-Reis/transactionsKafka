@@ -16,8 +16,8 @@ spring:
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
-      group-id: transaction-group
+
       properties:
-        isolation.level: read_commited
-        spring.json.trusted.packages: com.antony.transactions
+        isolation.level: read_committed
+        spring.json.trusted.packages: "com.antony.transactions*"
         spring.json.add.types.headers: false

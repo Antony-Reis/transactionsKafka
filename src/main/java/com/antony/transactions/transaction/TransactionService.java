@@ -1,13 +1,13 @@
 package com.antony.transactions.transaction;
 
-import com.antony.transactions.ITransactionRepository;
 import com.antony.transactions.transaction.utils.ETransactionStatusTypes;
-import com.antony.transactions.transaction.utils.RTransactionDto;
 import com.antony.transactions.transaction.utils.RTransactionRequestDto;
 import com.antony.transactions.utils.RMessageDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @Service
 public class TransactionService {
@@ -22,13 +22,11 @@ public class TransactionService {
     @Transactional
     public RMessageDto postTransaction(RTransactionRequestDto transactionDto){
         TransactionEntity transactionEntity = new TransactionEntity(transactionDto.value()
-        , transactionDto.createAt(), ETransactionStatusTypes.PENDENTE);
+        , LocalDateTime.now(), ETransactionStatusTypes.PENDENTE);
 
         iTransactionRepository.save(transactionEntity);
 
-        transactionProducer.sendTransaction(new RTransactionDto(transactionEntity.getValue()
-                , transactionEntity.getCreateAt(), transactionEntity.getStatus()));
-        System.out.println("Sending: " + transactionEntity);
+        transactionProducer.sendTransaction(transactionEntity);
 
         return new RMessageDto(HttpStatus.CREATED, "Transaction completed successfully");
     }
